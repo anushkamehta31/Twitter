@@ -16,7 +16,7 @@ import com.facebook.stetho.Stetho;
  *     // use client to send requests to API
  *
  */
-public class RestApplication extends Application {
+public class TwitterApp extends Application {
 
     MyDatabase myDatabase;
 
@@ -32,8 +32,9 @@ public class RestApplication extends Application {
         Stetho.initializeWithDefaults(this);
     }
 
-    public static RestClient getRestClient(Context context) {
-        return (RestClient) RestClient.getInstance(RestClient.class, context);
+    // This method creates the rest client and is called from the Activity
+    public static TwitterClient getRestClient(Context context) {
+        return (TwitterClient) TwitterClient.getInstance(TwitterClient.class, context);
     }
 
     public MyDatabase getMyDatabase() {
