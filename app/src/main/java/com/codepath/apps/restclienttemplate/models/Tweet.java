@@ -5,6 +5,7 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+@Parcel
 public class Tweet {
 
     public String body;
@@ -22,6 +24,9 @@ public class Tweet {
     private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
     private static final int DAY_MILLIS = 24 * HOUR_MILLIS;
     public static final String TAG = "Tweet";
+
+    // Empty constructor needed by the Parceler library
+    public Tweet() {}
 
     // Given the JSON object, turn it into a tweet object
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
