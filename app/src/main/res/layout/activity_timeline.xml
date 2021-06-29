@@ -27,5 +27,5 @@
         android:layout_centerHorizontal="true"
         android:layout_marginEnd="164dp"
         android:layout_marginBottom="17dp"
-        android:text="LOG OUT" />
+        android:text="@string/log_out" />
 </RelativeLayout>

@@ -77,8 +77,9 @@ public class TimelineActivity extends AppCompatActivity {
         // Handle presses on the action bar item
         if (item.getItemId() == R.id.compose) {
             // Compose icon has been selected
-            Toast.makeText(this, "Compose!", Toast.LENGTH_SHORT).show();
             // Navigate to the compose activity
+            Intent i = new Intent(this, ComposeActivity.class);
+            startActivity(i);
             return true;
         }
         return super.onOptionsItemSelected(item);
