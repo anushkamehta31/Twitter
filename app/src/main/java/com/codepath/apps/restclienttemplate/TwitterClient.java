@@ -51,7 +51,7 @@ public class TwitterClient extends OAuthBaseClient {
 		// Can specify query string params directly or through RequestParams. (look at API docs to see possible params)
 		RequestParams params = new RequestParams();
 		// Specifies the number of records to retrieve
-		params.put("count", 25);
+		params.put("count", 50);
 		// Returns results with an ID greater than the specified ID
 		params.put("since_id", 1);
 		client.get(apiUrl, params, handler);

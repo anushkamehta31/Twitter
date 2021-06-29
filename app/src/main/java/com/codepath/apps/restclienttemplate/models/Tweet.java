@@ -19,6 +19,7 @@ public class Tweet {
     public String body;
     public String createdAt;
     public User user;
+    public List<String> urls;
     private static final int SECOND_MILLIS = 1000;
     private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
     private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
@@ -34,7 +35,26 @@ public class Tweet {
         tweet.body = jsonObject.getString("text");
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
+        if (jsonObject.has("extended_entities")) {
+            tweet.urls = getImageUrlArray(jsonObject.getJSONObject("extended_entities").getJSONArray("media"));
+        }
+        else if (jsonObject.getJSONObject("entities").has("media")){
+            tweet.urls = getImageUrlArray(jsonObject.getJSONObject("entities").getJSONArray("media"));
+        }
+        else {
+            tweet.urls = new ArrayList<>();
+        }
         return tweet;
+    }
+
+    private static List<String> getImageUrlArray(JSONArray jsonArray) throws JSONException {
+        List<String> urls = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            String type = jsonArray.getJSONObject(i).getString("type");
+            urls.add(jsonArray.getJSONObject(i).getString("media_url_https"));
+            Log.d(TAG, String.valueOf(jsonArray));
+        }
+        return urls;
     }
 
     // Get a list of Tweet objects

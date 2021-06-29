@@ -1,10 +1,13 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +24,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
     Context context;
     List<Tweet> tweets;
+    public static final String TAG = "TweetsAdapter";
 
     // Pass in the context and list of tweets
     public TweetsAdapter(Context context, List<Tweet> tweets) {
@@ -51,6 +55,18 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         return tweets.size();
     }
 
+    // Clean all elements of the recycler
+    public void clear() {
+        tweets.clear();
+        notifyDataSetChanged();
+    }
+
+    // Add a list of items -- change to type used
+    public void addAll(List<Tweet> list) {
+        tweets.addAll(list);
+        notifyDataSetChanged();
+    }
+
     // Define a viewholder
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -58,6 +74,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvBody;
         TextView tvScreenName;
         TextView tvTimeStamp;
+        ListView lvListImage;
+        ImageAdapter adapter;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -65,6 +83,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvBody = itemView.findViewById(R.id.tvBody);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             tvTimeStamp = itemView.findViewById(R.id.tvTimeStamp);
+            lvListImage = itemView.findViewById(R.id.lvListImage);
         }
 
         public void bind(Tweet tweet) {
@@ -72,6 +91,14 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvScreenName.setText(tweet.user.screenName);
             tvTimeStamp.setText(Tweet.getRelativeTimeAgo(tweet.createdAt));
             Glide.with(context).load(tweet.user.profileImageUrl).into(ivProfileImage);
+            if (!tweet.urls.isEmpty()) {
+                lvListImage.setVisibility(View.VISIBLE);
+                adapter = new ImageAdapter(tweet.urls, context);
+                lvListImage.setAdapter(adapter);
+            } else {
+                lvListImage.setVisibility(View.GONE);
+            }
+            Log.d(TAG, String.valueOf(tweet.urls.size()) + tweet.user.screenName);
         }
     }
 }
