@@ -1,5 +1,6 @@
 package com.codepath.apps.restclienttemplate;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,12 +8,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -59,6 +64,26 @@ public class TimelineActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    // Identify when the compose button is tapped
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // Handle presses on the action bar item
+        if (item.getItemId() == R.id.compose) {
+            // Compose icon has been selected
+            Toast.makeText(this, "Compose!", Toast.LENGTH_SHORT).show();
+            // Navigate to the compose activity
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     // Call the API method using the Twitter client
     private void populateHomeTimeline() {
         client.getHomeTimeline(new JsonHttpResponseHandler() {
@@ -87,9 +112,8 @@ public class TimelineActivity extends AppCompatActivity {
     // When user taps logout button
     public void onLogoutButton() {
         client.clearAccessToken(); // forget who's logged in
-        //finish(); // navigate backwards to Login screen
         Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);
-        finish();
+        finish(); // navigate backwards to Login screen
     }
 }
