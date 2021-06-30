@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.codepath.asynchttpclient.RequestParams;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -63,6 +64,36 @@ public class TwitterClient extends OAuthBaseClient {
 		RequestParams params = new RequestParams();
 		// Specifies the tweet we are requesting to post as a parameter
 		params.put("status", tweetContent);
+		client.post(apiUrl, params, "", handler);
+	}
+
+	// Retweet a tweet
+	public void retweetTweet(String tweetID, JsonHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("statuses/retweet/"+tweetID+".json");
+		// Can specify query string params directly or through RequestParams. (look at API docs to see possible params)
+		 RequestParams params = new RequestParams();
+		// Specifies the tweet we are requesting to post as a parameter
+		 params.put("id", tweetID);
+		 client.post(apiUrl, params, "", handler);
+	}
+
+	// favorite a tweet
+	public void favoriteTweet(String tweetID, JsonHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("favorites/create.json");
+		// Can specify query string params directly or through RequestParams. (look at API docs to see possible params)
+		RequestParams params = new RequestParams();
+		// Specifies the tweet we are requesting to post as a parameter
+		params.put("id", tweetID);
+		client.post(apiUrl, params, "", handler);
+	}
+
+	// unfavorite a tweet
+	public void unfavoriteTweet(String tweetID, JsonHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("favorites/destroy.json");
+		// Can specify query string params directly or through RequestParams. (look at API docs to see possible params)
+		RequestParams params = new RequestParams();
+		// Specifies the tweet we are requesting to post as a parameter
+		params.put("id", tweetID);
 		client.post(apiUrl, params, "", handler);
 	}
 

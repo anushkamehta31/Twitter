@@ -38,9 +38,9 @@ public class TimelineActivity extends AppCompatActivity {
     public static final String TAG = "TimelineActivity";
     public static final int REQUEST_CODE = 20;
     TwitterClient client;
-    public static RecyclerView rvTweets;
-    List<Tweet> tweets;
-    public static TweetsAdapter adapter;
+    public RecyclerView rvTweets;
+    public List<Tweet> tweets;
+    public TweetsAdapter adapter;
     Button btnLogOut;
     private SwipeRefreshLayout swipeContainer;
     MenuItem miActionProgressItem;

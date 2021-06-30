@@ -17,6 +17,7 @@ import java.util.Locale;
 public class Tweet {
 
     public String body;
+    public String id;
     public String createdAt;
     public User user;
     public List<String> urls;
@@ -34,6 +35,7 @@ public class Tweet {
         Tweet tweet = new Tweet();
         tweet.body = jsonObject.getString("text");
         tweet.createdAt = jsonObject.getString("created_at");
+        tweet.id = jsonObject.getString("id");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
         if (jsonObject.has("extended_entities")) {
             tweet.urls = getImageUrlArray(jsonObject.getJSONObject("extended_entities").getJSONArray("media"));
