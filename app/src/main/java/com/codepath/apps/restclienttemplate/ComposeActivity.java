@@ -40,6 +40,12 @@ public class ComposeActivity extends AppCompatActivity {
         btnClose = findViewById(R.id.ibCloseTweet);
         client = TwitterApp.getRestClient(this);
 
+        // If it is a reply to another tweet prepopulate with user name
+        String user = getIntent().getStringExtra(TweetsAdapter.USER_NAME_TAG);
+        if (user != null) {
+            etCompose.setText(user);
+        }
+
         // Set a click listener on close button
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override

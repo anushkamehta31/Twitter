@@ -76,7 +76,7 @@ public class ImageAdapter implements ListAdapter {
         ImageView imageView = convertView.findViewById(R.id.ivImage);
         Glide.with(context).load(imageUrls.get(position))
                 .override(Target.SIZE_ORIGINAL, 400).fitCenter().
-                transform(new RoundedCornersTransformation(30,10)).into(imageView);
+                transform(new RoundedCornersTransformation(30,0)).into(imageView);
         return convertView;
     }
 
