@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
@@ -23,6 +24,7 @@ public class ComposeActivity extends AppCompatActivity {
     // Use Android SnackBar instead of Toasts
     EditText etCompose;
     Button btnTweet;
+    ImageButton btnClose;
     TwitterClient client;
     public static final int MAX_TWEET_LENGTH = 140;
     public static final String TAG = "ComposeActivity";
@@ -35,7 +37,16 @@ public class ComposeActivity extends AppCompatActivity {
 
         etCompose = findViewById(R.id.etCompose);
         btnTweet = findViewById(R.id.btnTweet);
+        btnClose = findViewById(R.id.ibCloseTweet);
         client = TwitterApp.getRestClient(this);
+
+        // Set a click listener on close button
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         // Set a click listener on the button
         btnTweet.setOnClickListener(new View.OnClickListener() {

@@ -16,6 +16,8 @@ import com.codepath.apps.restclienttemplate.models.Tweet;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 public class ImageAdapter implements ListAdapter {
 
     List<String> imageUrls;
@@ -73,7 +75,8 @@ public class ImageAdapter implements ListAdapter {
         }
         ImageView imageView = convertView.findViewById(R.id.ivImage);
         Glide.with(context).load(imageUrls.get(position))
-                .override(Target.SIZE_ORIGINAL, 400).into(imageView);
+                .override(Target.SIZE_ORIGINAL, 400).fitCenter().
+                transform(new RoundedCornersTransformation(30,10)).into(imageView);
         return convertView;
     }
 

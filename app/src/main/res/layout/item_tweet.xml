@@ -12,8 +12,8 @@
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
@@ -22,8 +22,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="5dp"
         android:layout_toEndOf="@+id/ivProfileImage"
+        android:fontFamily="@font/roboto"
+        android:paddingTop="3dp"
         tools:text="anushkamehta31" />
 
     <TextView
@@ -34,6 +36,8 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="2dp"
         android:layout_toEndOf="@+id/ivProfileImage"
+        android:fontFamily="@font/roboto"
+        android:paddingRight="10dp"
         tools:text="This is my tweet!!" />
 
     <TextView
@@ -43,10 +47,12 @@
         android:layout_alignBottom="@+id/tvScreenName"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="275dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="0dp"
-        android:layout_toEndOf="@+id/tvScreenName"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:paddingTop="3dp"
         tools:text="3m" />
 
     <ListView
@@ -55,8 +61,54 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvBody"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_centerInParent="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="0dp"
+        android:layout_toEndOf="@+id/ivProfileImage" />
+
+    <ImageButton
+        android:id="@+id/ibReply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lvListImage"
+        android:layout_alignParentBottom="false"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="0dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:background="#00FFFFFF"
+        android:tint="@color/medium_gray"
+        app:srcCompat="@drawable/vector_compose_fab" />
+
+    <ImageButton
+        android:id="@+id/ibRetweet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lvListImage"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentBottom="false"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="158dp"
+        android:layout_marginBottom="0dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:background="#00FFFFFF"
+        android:tint="@color/medium_gray"
+        app:srcCompat="@drawable/ic_vector_retweet"
+        tools:srcCompat="@drawable/ic_vector_retweet_stroke" />
+
+    <ImageButton
+        android:id="@+id/ibLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lvListImage"
+        android:layout_marginStart="288dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="0dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:background="#00FFFFFF"
+        android:tint="@color/medium_gray"
+        app:srcCompat="@drawable/ic_vector_heart_stroke" />
 </RelativeLayout>
