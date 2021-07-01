@@ -129,6 +129,18 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             retweetCount = itemView.findViewById(R.id.tvRetweets);
             favoriteCount = itemView.findViewById(R.id.tvLikes);
             liked = false;
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //clickListener.onItemClick(itemView, getAdapterPosition());
+                    int position = getAdapterPosition();
+                    Intent i = new Intent(context, DetailsActivity.class);
+                    i.putExtra("itemTweet", Parcels.wrap(tweets.get(position)));
+                    Activity a = (Activity) context;
+                    a.startActivityForResult(i, REQUEST_CODE);
+                }
+            });
         }
 
         public void bind(final Tweet tweet) {
