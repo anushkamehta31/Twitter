@@ -19,6 +19,8 @@ public class Tweet {
     public String body;
     public String id;
     public String createdAt;
+    public String retweetCount;
+    public String favoriteCount;
     public User user;
     public List<String> urls;
     private static final int SECOND_MILLIS = 1000;
@@ -36,6 +38,8 @@ public class Tweet {
         tweet.body = jsonObject.getString("text");
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.id = jsonObject.getString("id");
+        tweet.favoriteCount = jsonObject.getString("favorite_count");
+        tweet.retweetCount = jsonObject.getString("retweet_count");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
         if (jsonObject.has("extended_entities")) {
             tweet.urls = getImageUrlArray(jsonObject.getJSONObject("extended_entities").getJSONArray("media"));

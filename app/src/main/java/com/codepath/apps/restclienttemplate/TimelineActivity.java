@@ -44,6 +44,7 @@ public class TimelineActivity extends AppCompatActivity {
     Button btnLogOut;
     private SwipeRefreshLayout swipeContainer;
     MenuItem miActionProgressItem;
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,17 @@ public class TimelineActivity extends AppCompatActivity {
         // Init the list of tweets and adapter
         tweets = new ArrayList<>();
         adapter = new TweetsAdapter(this, tweets);
+
+        // Set the onClick listener for details activity
+        adapter.setOnItemClickListener(new TweetsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int position) {
+                // Handle item click here:
+                // Create Intent to start BookDetailActivity
+                // Get Book at the given position
+                // Pass the book into details activity using extras
+            }
+        });
         // Recycler view setup: layout manager and the adapter
         rvTweets.setLayoutManager(new LinearLayoutManager(this));
         rvTweets.setAdapter(adapter);
@@ -72,7 +84,7 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
 
-        // Lookup the swipe container view
+        // Lookup the swipe container view for refreshing data
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -134,7 +146,7 @@ public class TimelineActivity extends AppCompatActivity {
 
 
 
-    // Retrieve the composed tweet back
+    // Retrieve the composed tweet back from ComposeActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @org.jetbrains.annotations.Nullable Intent data) {
         // requestCode is what we defined above REQUEST_CODE

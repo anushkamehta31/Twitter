@@ -42,6 +42,19 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     public static final String TAG = "TweetsAdapter";
     public static final String USER_NAME_TAG = "user_name";
 
+    // // Define listener member variable
+    private OnItemClickListener listener;
+
+    // Define the listener interface
+    public interface OnItemClickListener {
+        void onItemClick(View itemView, int position);
+    }
+
+    // Define the method that allows the parent activity or fragment to define the listener
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
     // Pass in the context and list of tweets
     public TweetsAdapter(Context context, List<Tweet> tweets) {
         this.context = context;
@@ -97,6 +110,9 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TwitterClient client;
         ImageButton ibRetweet;
         ImageButton ibLike;
+        TextView retweetCount;
+        TextView favoriteCount;
+        Boolean liked;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -110,6 +126,9 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             client = TwitterApp.getRestClient(context);
             ibRetweet = itemView.findViewById(R.id.ibRetweet);
             ibLike = itemView.findViewById(R.id.ibLike);
+            retweetCount = itemView.findViewById(R.id.tvRetweets);
+            favoriteCount = itemView.findViewById(R.id.tvLikes);
+            liked = false;
         }
 
         public void bind(final Tweet tweet) {
@@ -118,6 +137,10 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvScreenName.setText("@"+tweet.user.screenName);
             tvUserName.setText(tweet.user.name);
             tvTimeStamp.setText(Tweet.getRelativeTimeAgo(tweet.createdAt));
+            retweetCount.setText(tweet.retweetCount);
+            favoriteCount.setText(tweet.favoriteCount);
+
+            // Bind profile image to profile image view
             Glide.with(context).load(tweet.user.profileImageUrl).fitCenter().
                     transform(new RoundedCornersTransformation(20,10)).into(ivProfileImage);
 
@@ -148,7 +171,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             ibRetweet.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // If the button is pressed, make an API call to twitter to public the tweet
+                    // If the button is pressed, make an API call to twitter to publish the tweet
                     client.retweetTweet(tweet.id, new JsonHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Headers headers, JSON json) {
@@ -173,17 +196,24 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 }
             });
 
+
             // Set onClickListener to like button
             ibLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // If the button is not already pressed like the tweet
+                    if (!liked) {
                         client.favoriteTweet(tweet.id, new JsonHttpResponseHandler() {
                             @Override
                             public void onSuccess(int statusCode, Headers headers, JSON json) {
                                 Log.d(TAG, "onSuccess to like tweet");
                                 // Change the image to indicate that the tweet is now liked
                                 ibLike.setImageResource(R.drawable.ic_vector_heart);
+                                // Increase the number of likes on the tweet
+                                int i = Integer.valueOf(tweet.favoriteCount);
+                                favoriteCount.setText(String.valueOf(i + 1));
+                                liked = true;
+
                             }
 
                             @Override
@@ -191,7 +221,27 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                                 Log.e(TAG, "onFailure to like a tweet");
                             }
                         });
+                    } else {
+                        client.unfavoriteTweet(tweet.id, new JsonHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                                Log.d(TAG, "onSuccess to unlike tweet");
+                                // Change the image to indicate that the tweet is now liked
+                                ibLike.setImageResource(R.drawable.ic_vector_heart_stroke);
+                                // Increase the number of likes on the tweet
+                                int i = Integer.valueOf(tweet.favoriteCount);
+                                favoriteCount.setText(String.valueOf(i));
+                                liked = false;
+
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                                Log.e(TAG, "onFailure to unlike a tweet");
+                            }
+                        });
                     }
+                }
             });
         }
 

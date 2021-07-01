@@ -99,6 +99,16 @@
         app:srcCompat="@drawable/ic_vector_retweet"
         tools:srcCompat="@drawable/ic_vector_retweet_stroke" />
 
+    <TextView
+        android:id="@+id/tvRetweets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/ibRetweet"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@id/ibRetweet"
+        android:fontFamily="@font/roboto"
+        tools:text="33" />
+
     <ImageButton
         android:id="@+id/ibLike"
         android:background="#00FFFFFF"
@@ -109,4 +119,15 @@
         android:layout_marginStart="80dp"
         android:tint="@color/medium_gray"
         app:srcCompat="@drawable/ic_vector_heart_stroke" />
+
+    <TextView
+        android:id="@+id/tvLikes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/ibLike"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@id/ibLike"
+        android:fontFamily="@font/roboto"
+        tools:text="35" />
+
 </RelativeLayout>
