@@ -13,6 +13,7 @@ import android.widget.Toolbar;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.codepath.apps.restclienttemplate.databinding.ActivityLoginBinding;
 import com.codepath.apps.restclienttemplate.models.SampleModel;
 import com.codepath.apps.restclienttemplate.models.SampleModelDao;
 import com.codepath.oauth.OAuthLoginActionBarActivity;
@@ -28,7 +29,11 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login);
+
+		// Use view binding to get the layout
+		ActivityLoginBinding binding = ActivityLoginBinding.inflate(getLayoutInflater());
+		View view = binding.getRoot();
+		setContentView(view);
 
 		final SampleModel sampleModel = new SampleModel();
 		sampleModel.setName("CodePath");

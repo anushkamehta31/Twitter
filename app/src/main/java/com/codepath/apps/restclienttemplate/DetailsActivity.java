@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.codepath.apps.restclienttemplate.databinding.ActivityDetailsBinding;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
@@ -51,21 +52,25 @@ public class DetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
 
-        ivProfileImage = findViewById(R.id.ivProfileImage);
-        tvBody = findViewById(R.id.tvBody);
-        tvScreenName = findViewById(R.id.tvScreenName);
-        tvTimeStamp = findViewById(R.id.tvTimeStamp);
-        lvListImage = findViewById(R.id.lvListImage);
-        btnReply = findViewById(R.id.ibReply);
-        tvUserName = findViewById(R.id.tvUsername);
+        // View binding to create binding object
+        ActivityDetailsBinding binding = ActivityDetailsBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
+        ivProfileImage = binding.ivProfileImage;
+        tvBody = binding.tvBody;
+        tvScreenName = binding.tvScreenName;
+        tvTimeStamp = binding.tvTimeStamp;
+        lvListImage = binding.lvListImage;
+        btnReply = binding.ibReply;
+        tvUserName = binding.tvUsername;
         client = TwitterApp.getRestClient(this);
-        ibRetweet = findViewById(R.id.ibRetweet);
-        ibLike = findViewById(R.id.ibLike);
-        retweetCount = findViewById(R.id.tvRetweets);
-        favoriteCount = findViewById(R.id.tvLikes);
-        ret = findViewById(R.id.ibBack);
+        ibRetweet = binding.ibRetweet;
+        ibLike = binding.ibLike;
+        retweetCount = binding.tvRetweets;
+        favoriteCount = binding.tvLikes;
+        ret = binding.ibBack;
         liked = false;
 
         tweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra("itemTweet"));

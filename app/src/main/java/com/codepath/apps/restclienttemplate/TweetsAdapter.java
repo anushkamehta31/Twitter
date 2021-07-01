@@ -99,6 +99,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     // Define a viewholder
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        // Create member variables for all of the views
         ImageView ivProfileImage;
         TextView tvBody;
         TextView tvScreenName;
@@ -116,6 +117,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            // Get references to every view
             ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
             tvBody = itemView.findViewById(R.id.tvBody);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);

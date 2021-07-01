@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.codepath.apps.restclienttemplate.databinding.ActivityComposeBinding;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
@@ -33,11 +34,12 @@ public class ComposeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_compose);
+        ActivityComposeBinding binding = ActivityComposeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        etCompose = findViewById(R.id.etCompose);
-        btnTweet = findViewById(R.id.btnTweet);
-        btnClose = findViewById(R.id.ibCloseTweet);
+        etCompose = binding.etCompose;
+        btnTweet = binding.btnTweet;
+        btnClose = binding.ibCloseTweet;
         client = TwitterApp.getRestClient(this);
 
         // If it is a reply to another tweet prepopulate with user name

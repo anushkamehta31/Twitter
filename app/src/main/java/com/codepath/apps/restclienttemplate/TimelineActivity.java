@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.codepath.apps.restclienttemplate.databinding.ActivityTimelineBinding;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
@@ -50,12 +51,18 @@ public class TimelineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "Timeline Reached");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_timeline);
+
+        // activity_timeline.xml -> ActivityTimelineBinding
+        ActivityTimelineBinding binding = ActivityTimelineBinding.inflate(getLayoutInflater());
+        // layout of activity is stored in a special property called root
+        View view = binding.getRoot();
+        // set content to layout of activity
+        setContentView(view);
 
         // Get an instance of TwitterClient
         client = TwitterApp.getRestClient(this);
         // Find the recycler view
-        rvTweets = findViewById(R.id.rvTweets);
+        rvTweets = binding.rvTweets;
         // Init the list of tweets and adapter
         tweets = new ArrayList<>();
         adapter = new TweetsAdapter(this, tweets);
