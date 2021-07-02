@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import static com.codepath.apps.restclienttemplate.TimelineActivity.minID;
+
 @Parcel
 public class Tweet {
 
@@ -38,6 +40,10 @@ public class Tweet {
         tweet.body = jsonObject.getString("text");
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.id = jsonObject.getString("id");
+
+        Long id = Long.valueOf(tweet.id);
+        if (id < minID) minID = id;
+
         tweet.favoriteCount = jsonObject.getString("favorite_count");
         tweet.retweetCount = jsonObject.getString("retweet_count");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));

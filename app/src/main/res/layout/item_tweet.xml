@@ -38,6 +38,8 @@
         android:fontFamily="@font/roboto"
         tools:text="This is my tweet!!"
         android:layout_alignParentEnd="true"
+        android:autoLink="all"
+        android:linksClickable="true"
         android:layout_marginEnd="10dp"/>
 
     <TextView
