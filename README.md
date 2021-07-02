@@ -46,13 +46,15 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='walkthrough.gif' />
 
 GIF created with [Kap](https://getkap.co/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+I faced challenges determining how to implement list view and embed images into my tweets. Ultimately, I created a list of URLs for every tweet object so that each url could be added as an individual image to the listview.
+I also struggled determining how to allow users to unlike and like tweets by determining whether the like button had already been pressed. I used a boolean value that was initially set to false and then changed to true (and vice versa)
+when the tweet was liked and unliked.
 
 ## Open-source libraries used
 
